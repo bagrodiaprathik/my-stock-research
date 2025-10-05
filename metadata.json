@@ -1,0 +1,5 @@
+{
+  "name": "Stock Research AI",
+  "description": "An AI-powered application to get deep, internet-researched insights on stocks and investment suggestions using the latest information from Google Search.",
+  "requestFramePermissions": []
+}
