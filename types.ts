@@ -1,4 +1,3 @@
-
 export interface AnalysisResult {
   symbol: string;
   suggestion: string;
@@ -15,4 +14,11 @@ export interface GroundingChunk {
 export interface FullAnalysis {
     analysis: AnalysisResult;
     sources: GroundingChunk[];
+}
+
+export interface ExpertNote {
+  id: string;
+  person: string;
+  opinion: string;
+  timestamp: string;
 }
