@@ -7,7 +7,8 @@ import { getStockAnalysis } from './services/geminiService';
 import { FullAnalysis } from './types';
 
 const App: React.FC = () => {
-    const [stockSymbol, setStockSymbol] = useState<string>('GOOGL');
+    const [stockSymbol, setStockSymbol] = useState<string>('RELIANCE');
+    const [market, setMarket] = useState<string>('NSE');
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [analysisResult, setAnalysisResult] = useState<FullAnalysis | null>(null);
     const [error, setError] = useState<string | null>(null);
@@ -22,7 +23,7 @@ const App: React.FC = () => {
         setAnalysisResult(null);
 
         try {
-            const result = await getStockAnalysis(stockSymbol);
+            const result = await getStockAnalysis(stockSymbol, market);
             setAnalysisResult(result);
         } catch (e: unknown) {
             if (e instanceof Error) {
@@ -33,7 +34,7 @@ const App: React.FC = () => {
         } finally {
             setIsLoading(false);
         }
-    }, [stockSymbol]);
+    }, [stockSymbol, market]);
 
     return (
         <div className="min-h-screen bg-gray-900 text-gray-100 font-sans p-4 sm:p-6 lg:p-8">
@@ -50,8 +51,10 @@ const App: React.FC = () => {
                 <main>
                     <div className="bg-gray-800/50 backdrop-blur-sm p-6 rounded-2xl shadow-2xl border border-gray-700">
                          <StockInput 
-                            value={stockSymbol}
-                            onChange={(e) => setStockSymbol(e.target.value)}
+                            symbolValue={stockSymbol}
+                            onSymbolChange={(e) => setStockSymbol(e.target.value.toUpperCase())}
+                            marketValue={market}
+                            onMarketChange={(e) => setMarket(e.target.value.toUpperCase())}
                             onSubmit={handleResearch}
                             isLoading={isLoading}
                         />

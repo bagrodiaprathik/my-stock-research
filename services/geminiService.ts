@@ -12,13 +12,15 @@ function cleanJsonString(text: string): string {
     return text.trim();
 }
 
-export const getStockAnalysis = async (stockSymbol: string): Promise<FullAnalysis> => {
+export const getStockAnalysis = async (stockSymbol: string, market: string): Promise<FullAnalysis> => {
     if (!stockSymbol) {
         throw new Error("Stock symbol cannot be empty.");
     }
 
+    const marketInfo = market.trim() ? ` trading on the "${market.toUpperCase()}" exchange/market` : '';
+
     const prompt = `
-        You are an expert financial analyst. Conduct deep research on the stock with the symbol "${stockSymbol.toUpperCase()}" using real-time internet data.
+        You are an expert financial analyst. Conduct deep research on the stock with the symbol "${stockSymbol.toUpperCase()}"${marketInfo} using real-time internet data.
         Provide a concise, data-driven investment analysis based on the latest news, financial performance, and market trends. 
         Your response MUST be in a valid JSON format.
         
